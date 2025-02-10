@@ -7,16 +7,24 @@ class MakeRentalsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: const Text('Make reservation',),
-        leading:const BackItem() ,
+        title: const Text(
+          'My Rentals',
+        ),
+        leading: const BackItem(),
         leadingWidth: 50,
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: ListView.separated(itemBuilder: (context, index) => const PropertyItem(),itemCount: 2, separatorBuilder: (context, index) => const SizedBox(height: 20,),),
+        child: ListView.separated(
+          itemBuilder: (context, index) => const PropertyItem(),
+          itemCount: 2,
+          separatorBuilder: (context, index) => const SizedBox(
+            height: 20,
+          ),
+        ),
       ),
     );
   }

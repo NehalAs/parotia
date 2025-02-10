@@ -8,23 +8,27 @@ class PropertyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        // PageView.builder(itemBuilder: (context, index) =>const Image(image: NetworkImage('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBhcnRtZW50fGVufDB8fDB8fHww')) ,),
-        ImagesPageView(),
-        SizedBox(
-          width: 20,
-        ),
-        Expanded(
-          child: ApartmentInfo(),
-        ),
-        Icon(
-          Icons.arrow_forward_ios,
-          color: AppColors.orange0B,
-          size: 20,
-        ),
-      ],
+    return InkWell(
+      onTap: () {
+
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ImagesPageView(),
+          const SizedBox(
+            width: 20,
+          ),
+          const Expanded(
+            child: ApartmentInfo(),
+          ),
+          const Icon(
+            Icons.arrow_forward_ios,
+            color: AppColors.orange0B,
+            size: 20,
+          ),
+        ],
+      ),
     );
   }
 }
