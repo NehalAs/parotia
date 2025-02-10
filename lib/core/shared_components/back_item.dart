@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:parotia/core/utils/app_colors.dart';
 
 class BackItem extends StatelessWidget {
-  const BackItem({super.key,  this.isCloseIcon=false});
+  const BackItem({super.key,  this.isCloseIcon=false,this.radius});
   final bool isCloseIcon;
+  final double? radius;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20),
-      child: InkWell(
-        onTap: () => Navigator.pop(context),
-        child: CircleAvatar(
-            radius: 40,
-              backgroundColor:Colors.grey[300],
-            child:  Icon(isCloseIcon?Icons.close:Icons.arrow_back_ios,size: 15,)),
-      ),
+    return InkWell(
+      onTap: () => Navigator.pop(context),
+      child: CircleAvatar(
+          radius:radius?? 40,
+            backgroundColor: AppColors.greyEE,
+          child:  Icon(isCloseIcon?Icons.close:Icons.arrow_back_ios,size: 15,)),
     );
   }
 }

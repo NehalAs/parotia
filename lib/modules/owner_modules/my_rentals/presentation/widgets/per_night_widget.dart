@@ -13,7 +13,7 @@ class PerNightWidget extends StatelessWidget {
       decoration: BoxDecoration(
           color: AppColors.orange0B.withOpacity(0.05),
           borderRadius: BorderRadius.circular(20),border: Border.all(color:AppColors.orange0B)),
-      child:  Text(text,style: Styles.fontSize12Regular,),
+      child:  Text(text,style: Styles.fontSize12RegularOrange,),
     );
   }
 }

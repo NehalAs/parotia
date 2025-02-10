@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parotia/core/shared_components/back_item.dart';
-import 'package:parotia/modules/owner_modules/make_reservation/presentation/widgets/property_item.dart';
+import 'package:parotia/modules/owner_modules/my_rentals/presentation/widgets/property_item.dart';
 
 class MakeRentalsView extends StatelessWidget {
   const MakeRentalsView({super.key});
@@ -12,7 +12,10 @@ class MakeRentalsView extends StatelessWidget {
         title: const Text(
           'My Rentals',
         ),
-        leading: const BackItem(),
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: BackItem(),
+        ),
         leadingWidth: 50,
         centerTitle: true,
       ),

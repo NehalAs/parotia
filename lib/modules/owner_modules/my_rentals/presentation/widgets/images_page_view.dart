@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parotia/core/utils/app_colors.dart';
-import 'package:parotia/modules/owner_modules/make_reservation/presentation/widgets/image_item.dart';
+import 'package:parotia/modules/owner_modules/my_rentals/presentation/widgets/image_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ImagesPageView extends StatelessWidget {
