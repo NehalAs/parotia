@@ -17,7 +17,7 @@ class CalenderView extends StatefulWidget {
 
 class _CalenderViewState extends State<CalenderView> {
   DateTime _focusedDay = DateTime.now();
-  List<DateTime> _selectedDays = [];
+   List<DateTime> _selectedDays = [];
 
   final Map<DateTime, int> priceData = {
     DateTime(2025, 2, 12): 50,
@@ -132,7 +132,7 @@ class _CalenderViewState extends State<CalenderView> {
               const Divider(color: AppColors.greyEE),
               const Spacer(),
               if(_selectedDays.isNotEmpty)
-                CustomButton(text: 'Edit Days', onPressed: () => showModalBottomSheet(context: context, builder: (context) => const CalenderBottomSheet(),),)
+                CustomButton(text: 'Edit Days', onPressed: () => showModalBottomSheet(context: context, builder: (context) => CalenderBottomSheet(selectedDays:_selectedDays,),),)
             ],
           ),
         ),

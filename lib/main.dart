@@ -20,9 +20,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomeView(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+      ),
+      home: const WelcomeView(),
     );
   }
 }
