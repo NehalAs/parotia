@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parotia/core/shared_components/back_item.dart';
 import 'package:parotia/core/shared_components/custom_button.dart';
 import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/reservation_type_item.dart';
+import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/visitor_calender_bottom_sheet.dart';
 
 import '../../../../../core/utils/styles.dart';
 
@@ -53,7 +54,8 @@ class _SelectReservationBottomSheetState extends State<SelectReservationBottomSh
             }, text: 'Package (Week days)',),
             const Spacer(),
             CustomButton(text: 'Confirm', onPressed: () {
-
+              Navigator.pop(context);
+              showModalBottomSheet(context: context, builder: (context) => const VisitorCalenderBottomSheet(),isScrollControlled: true,);
             },)
           ],
         ),
