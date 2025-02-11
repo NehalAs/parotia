@@ -26,6 +26,9 @@ class MainApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
         appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.white
+        )
       ),
       home: const WelcomeView(),
     );

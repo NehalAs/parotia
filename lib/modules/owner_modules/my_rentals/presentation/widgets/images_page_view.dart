@@ -1,17 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:parotia/core/utils/app_colors.dart';
 import 'package:parotia/modules/owner_modules/my_rentals/presentation/widgets/image_item.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ImagesPageView extends StatelessWidget {
-  ImagesPageView({super.key});
+  ImagesPageView({super.key,  this.height=150,  this.width=150,  this.haveFavIcon=false});
 
   final PageController pageController = PageController();
+  final double? height;
+  final double? width;
+  final bool haveFavIcon;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 150,
-        width: 150,
+        height: height,
+        width: width,
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -33,6 +37,15 @@ class ImagesPageView extends StatelessWidget {
                     activeDotColor: Colors.orangeAccent
                 ),
               ),
+            ),
+            if(haveFavIcon)
+              const Padding(
+              padding: EdgeInsets.all(20),
+              child: Align(
+                  alignment: Alignment.topRight,
+                  child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Icon(CupertinoIcons.heart_fill,color: AppColors.orange2E,))),
             )
           ],
         ));

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:parotia/core/shared_components/custom_svg.dart';
 import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/my_tabBar.dart';
 import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/search_banner_item.dart';
+import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/visitors_apartments_list_view.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../generated/assets.dart';
@@ -49,10 +50,23 @@ class _VisitorHomeViewState extends State<VisitorHomeView> {
                       CustomTab(currentTapIndex: currentTapIndex, text: 'Wilderness Area', icon: Assets.svgsWild,index: 1,),
                       CustomTab(currentTapIndex: currentTapIndex, text: 'Desert Area', icon: Assets.svgsDesert,index: 2,),
                       CustomTab(currentTapIndex: currentTapIndex, text: 'Mountainous', icon: Assets.svgsMountain,index: 3,),
-                    ])
+                    ]),
+                const SizedBox(height: 30,),
+                const VisitorsApartmentsListView(),
               ],
             ),
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: AppColors.orange2E,
+          unselectedItemColor: Colors.grey,
+          showUnselectedLabels: true,
+          items: const [
+          BottomNavigationBarItem(icon: CustomSvg(icon: Assets.svgsSearch,color: AppColors.orange2E,),label: 'Explore'),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.calendar),label: 'My Booking'),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.heart),label: 'Explore'),
+          BottomNavigationBarItem(icon: Icon(Icons.more_horiz),label: 'My Booking'),
+        ],
         ),
       ),
     );
