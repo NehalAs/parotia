@@ -18,8 +18,8 @@ class RentalModel {
 
   RentalModel.fromJson(Map<String, dynamic> json) {
     images = json['images'].cast<String>();
-    calendar = json['calendar'] != null
-        ? new Calendar.fromJson(json['calendar'])
+    calendar = json['calender'] != null
+        ? new Calendar.fromJson(json['calender'])
         : null;
     guests = json['guests'];
     name = json['name'];
@@ -32,7 +32,7 @@ class RentalModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['images'] = this.images;
     if (this.calendar != null) {
-      data['calendar'] = this.calendar!.toJson();
+      data['calender'] = this.calendar!.toJson();
     }
     data['guests'] = this.guests;
     data['name'] = this.name;

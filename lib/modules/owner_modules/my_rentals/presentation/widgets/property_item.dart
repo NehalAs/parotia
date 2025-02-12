@@ -11,7 +11,7 @@ class PropertyItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=>showModalBottomSheet(context:context,builder: (context) => const MyRentalsBottomSheet()),
+      onTap: ()=>showModalBottomSheet(context:context,builder: (context) => MyRentalsBottomSheet(rentalModel: rentalModel,)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

@@ -4,9 +4,11 @@ import 'package:parotia/modules/owner_modules/calender/presentation/views/calend
 import 'package:parotia/modules/owner_modules/my_rentals/presentation/widgets/bottom_sheet_header.dart';
 
 import '../../../../../core/utils/styles.dart';
+import '../../models/rental_model.dart';
 
 class MyRentalsBottomSheet extends StatelessWidget {
-  const MyRentalsBottomSheet({super.key});
+  const MyRentalsBottomSheet({super.key, required this.rentalModel});
+  final RentalModel rentalModel;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class MyRentalsBottomSheet extends StatelessWidget {
           children: [
             const BottomSheetHeader(title: 'My Rentals'),
             InkWell(
-              onTap: () => AppUtil.mainNavigator(context,const CalenderView()),
+              onTap: () => AppUtil.mainNavigator(context, CalenderView(rentalModel: rentalModel,)),
               child: SizedBox(
                 width: double.infinity,
                 child: Padding(
