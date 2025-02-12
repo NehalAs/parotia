@@ -15,11 +15,11 @@ class VisitorsApartmentsListViewItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ImagesPageView(
-            height: AppUtil.responsiveWidth(context)-90,
-            width: double.infinity,
-            haveFavIcon: true,
-          ),
+          // ImagesPageView(
+          //   height: AppUtil.responsiveWidth(context)-90,
+          //   width: double.infinity,
+          //   haveFavIcon: true,
+          // ),
           const SizedBox(height: 16,),
           Text('Sahary Apartment',style: Styles.fontSize18Bold,),
           Align(

@@ -22,7 +22,7 @@ class _VisitorCalenderBottomSheetState
     extends State<VisitorCalenderBottomSheet> {
   DateTime _focusedDay = DateTime.now();
   List<DateTime> _selectedDays = [];
-
+  String date='2025-02-12 00:00:00.000';
   final Map<DateTime, int> priceData = {
     DateTime(2025, 2, 12): 50,
     DateTime(2025, 2, 13): 55,
@@ -30,12 +30,15 @@ class _VisitorCalenderBottomSheetState
     DateTime(2025, 2, 15): 70,
   };
 
-  final List<DateTime> _unavailableDays = [
-    DateTime(2025, 2, 4),
-    DateTime(2025, 2, 18),
-  ];
+
+  final List<DateTime> _unavailableDays = [];
   @override
   Widget build(BuildContext context) {
+    String test=DateTime(2025, 2, 19).toString();
+    print('nnnnnnnnnnnnnnnnn$test');
+    print('nnnnnnnnnnnnnnnnn${DateTime.parse(test)}');
+
+    _unavailableDays.add(DateTime.parse('2025-02-10 00:00:00.000'),);
     return SizedBox(
       height: 650,
       width: double.infinity,
@@ -120,7 +123,7 @@ class _VisitorCalenderBottomSheetState
                             decoration: isUnavailable
                                 ? TextDecoration.lineThrough
                                 : null,
-                            decorationColor: Colors.grey,
+                            decorationColor: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),

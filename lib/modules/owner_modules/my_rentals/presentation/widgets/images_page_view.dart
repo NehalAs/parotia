@@ -5,12 +5,13 @@ import 'package:parotia/modules/owner_modules/my_rentals/presentation/widgets/im
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ImagesPageView extends StatelessWidget {
-  ImagesPageView({super.key,  this.height=150,  this.width=150,  this.haveFavIcon=false});
+  ImagesPageView({super.key,  this.height=150,  this.width=150,  this.haveFavIcon=false, required this.images});
 
   final PageController pageController = PageController();
   final double? height;
   final double? width;
   final bool haveFavIcon;
+  final List<String>? images;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -21,13 +22,13 @@ class ImagesPageView extends StatelessWidget {
           children: [
             PageView.builder(
               controller: pageController,
-              itemBuilder: (context, index) => const ImageItem(),
-              itemCount: 5,
+              itemBuilder: (context, index) => ImageItem(image:images![index]),
+              itemCount: images?.length,
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
               child: SmoothPageIndicator(
-                count: 5,
+                count: images!.length,
                 controller: pageController,
                 effect:  SlideEffect(
                     spacing: 6,
