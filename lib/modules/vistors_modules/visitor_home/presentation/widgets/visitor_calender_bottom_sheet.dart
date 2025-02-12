@@ -129,6 +129,18 @@ class _VisitorCalenderBottomSheetState
                           ),
                         ),
                       ),
+                      if (price != null)
+                        Positioned(
+                          bottom: 2,
+                          child: Text(
+                            "\$${price}",
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                     ],
                   );
                 },

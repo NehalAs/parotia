@@ -23,7 +23,7 @@ class EditAvailabilityView extends StatelessWidget {
               Text('Edit Availability', style: Styles.fontSize28Bold),
               Text('You can change it anytime.', style: Styles.fontSize16RegularGrey),
               const SizedBox(height: 20,),
-              DatesRangeRow(isOneDayOnly: days.length==1),
+              DatesRangeRow(isOneDayOnly: days.length==1, days: days,),
               const SizedBox(height: 20,),
               const Divider(),
               const SizedBox(height: 30,),

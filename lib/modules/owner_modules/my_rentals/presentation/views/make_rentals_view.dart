@@ -7,8 +7,8 @@ import 'package:parotia/modules/owner_modules/my_rentals/view_model/cubit/my_ren
 
 import '../../view_model/cubit/my_rentals_state.dart';
 
-class MakeRentalsView extends StatelessWidget {
-  const MakeRentalsView({super.key});
+class MyRentalsView extends StatelessWidget {
+  const MyRentalsView({super.key});
 
   @override
   Widget build(BuildContext context) {

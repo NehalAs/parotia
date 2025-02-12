@@ -16,7 +16,7 @@ class WelcomeView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomButton(text: 'Owner Flow', onPressed: () => AppUtil.mainNavigator(context,const MakeRentalsView()),),
+              CustomButton(text: 'Owner Flow', onPressed: () => AppUtil.mainNavigator(context,const MyRentalsView()),),
               const SizedBox(height: 20,),
               CustomButton(text: 'Visitor Flow', onPressed: () => AppUtil.mainNavigator(context,const VisitorHomeView()),),
             ],

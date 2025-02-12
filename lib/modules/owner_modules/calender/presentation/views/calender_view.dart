@@ -138,7 +138,7 @@ class _CalenderViewState extends State<CalenderView> {
                   onPressed: () => showModalBottomSheet(
                     context: context,
                     builder: (context) => CalenderBottomSheet(
-                      selectedDays: _selectedDays,
+                      selectedDays: _selectedDays, rentalId: widget.rentalModel.id!,
                     ),
                   ),
                 )

@@ -6,8 +6,10 @@ import 'package:parotia/modules/owner_modules/my_rentals/presentation/widgets/bo
 
 
 class CalenderBottomSheet extends StatelessWidget {
-  const CalenderBottomSheet({super.key, required this.selectedDays});
+  const CalenderBottomSheet({super.key, required this.selectedDays, required this.rentalId});
   final List<DateTime> selectedDays;
+  final String rentalId;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -21,7 +23,7 @@ class CalenderBottomSheet extends StatelessWidget {
             CalenderBottomSheetChoice(
                 navigatorScreen: EditAvailabilityView(days: selectedDays,), text: 'Edit Availability'),
             CalenderBottomSheetChoice(
-                navigatorScreen: EditPriceView(days:selectedDays,), text: 'Edit Price'),
+                navigatorScreen: EditPriceView(days:selectedDays, rentalId: rentalId,), text: 'Edit Price'),
           ],
         ),
       ),
