@@ -33,7 +33,7 @@ class EditAvailabilityCubit extends Cubit<EditAvailabilityState> {
     List? currentUnAvailableDays = await getUnAvailableDays(rentalId: rentalId);
     List stringDays =
         days.map((date) => date.toString().split('Z')[0]).toList();
-    //changeSwitchValue(newValue: !blocDatesSwitch);
+
     if (blocDatesSwitch) {
       currentUnAvailableDays!.addAll(stringDays);
       newUnavailableDays = currentUnAvailableDays;

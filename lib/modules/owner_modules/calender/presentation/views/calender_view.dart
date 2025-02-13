@@ -5,7 +5,6 @@ import 'package:parotia/core/shared_components/custom_table_calender.dart';
 import 'package:parotia/modules/owner_modules/calender/presentation/widgets/calender_bottom_sheet.dart';
 import 'package:parotia/modules/owner_modules/my_rentals/models/rental_model.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/styles.dart';
 
@@ -38,6 +37,7 @@ class _CalenderViewState extends State<CalenderView> {
                   style: Styles.fontSize16RegularGrey),
               const SizedBox(height: 20),
               CustomTableCalender(
+                selectedDays: selectedDays,
                 rentalModel: widget.rentalModel,
                 onDaySelected: (selectedDay, focusedDay) {
                   if (isSameDay(selectedDay, DateTime.now())) {
@@ -45,14 +45,12 @@ class _CalenderViewState extends State<CalenderView> {
                   }
                   setState(() {
                     if (selectedDays.any((d) => isSameDay(d, selectedDay))) {
-                      selectedDays
-                          .removeWhere((d) => isSameDay(d, selectedDay));
+                      selectedDays.removeWhere((d) => isSameDay(d, selectedDay));
                     } else {
                       selectedDays.add(selectedDay);
                     }
                   });
                 },
-                selectedDays: selectedDays,
               ),
               const SizedBox(height: 20),
               const Divider(color: AppColors.greyEE),
