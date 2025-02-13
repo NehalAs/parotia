@@ -30,7 +30,7 @@ class MyRentalsView extends StatelessWidget {
               centerTitle: true,
             ),
             body: state is GetMyRentalsLoadingState?const Center(child: CircularProgressIndicator(color: AppColors.orange0B,)):Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(16),
               child: ListView.separated(
                 itemBuilder: (context, index) => PropertyItem(rentalModel:myRentalsCubit.myRentals[index]),
                 itemCount: myRentalsCubit.myRentals.length,

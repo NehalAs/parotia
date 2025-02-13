@@ -17,9 +17,7 @@ class VisitorSelectedDaysRangeRow extends StatelessWidget {
           style: Styles.fontSize14RegularGrey
               .copyWith(color: Colors.black),
         ),
-        const SizedBox(
-          width: 90,
-        ),
+       const Spacer(),
         Text(
           days.isEmpty?'':
         DateFormat('E, d MMM yyyy').format(days.last).toString(),

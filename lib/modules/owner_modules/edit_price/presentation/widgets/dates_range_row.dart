@@ -14,7 +14,7 @@ class DatesRangeRow extends StatelessWidget {
       children: [
          FromDateItem(title: isOneDayOnly?'Date':'From Date',date: DateFormat('E, d MMM yyyy').format(days[0]).toString(),),
         if(!isOneDayOnly)...[
-          const SizedBox(width: 60,),
+          const Spacer(),
           FromDateItem(title:'To Date' ,date: DateFormat('E, d MMM yyyy').format(days.last).toString(),),
         ]
       ],

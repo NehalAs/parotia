@@ -15,17 +15,20 @@ class PropertyItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ImagesPageView(images: rentalModel.images,),
+          Expanded(
+              flex: 3,
+              child: ImagesPageView(images: rentalModel.images,)),
           const SizedBox(
-            width: 20,
+            width: 12,
           ),
           Expanded(
+            flex: 4,
             child: ApartmentInfo(rentalModel:rentalModel),
           ),
           const Icon(
             Icons.arrow_forward_ios,
             color: AppColors.orange0B,
-            size: 20,
+            size: 18,
           ),
         ],
       ),

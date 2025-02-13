@@ -10,7 +10,7 @@ class ImageItem extends StatelessWidget {
       child: Image(
           height: 150,
           width: 150,
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
           image: NetworkImage(image)),
     );
   }
