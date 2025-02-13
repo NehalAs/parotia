@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parotia/core/shared_components/custom_svg.dart';
 import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/my_tabBar.dart';
 import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/search_banner_item.dart';
 import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/visitors_apartments_list_view.dart';
+import 'package:parotia/modules/vistors_modules/visitor_home/view_model/cubit/visitor_home_cubit.dart';
+import 'package:parotia/modules/vistors_modules/visitor_home/view_model/cubit/visitor_home_state.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../generated/assets.dart';
@@ -19,6 +22,10 @@ class _VisitorHomeViewState extends State<VisitorHomeView> {
   int currentTapIndex = 0;
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+  create: (context) => VisitorHomeCubit(),
+  child: BlocBuilder<VisitorHomeCubit, VisitorHomeState>(
+  builder: (context, state) {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -70,5 +77,8 @@ class _VisitorHomeViewState extends State<VisitorHomeView> {
         ),
       ),
     );
+  },
+),
+);
   }
 }

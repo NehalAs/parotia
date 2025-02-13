@@ -7,7 +7,6 @@ import 'package:parotia/core/utils/styles.dart';
 import 'package:parotia/modules/owner_modules/edit_availability/view_model/cubit/edit_availability_cubit.dart';
 import 'package:parotia/modules/owner_modules/edit_price/presentation/widgets/dates_range_row.dart';
 import 'package:parotia/modules/welcome/presentation/views/welcome_view.dart';
-
 import '../../../../../core/shared_components/custom_button.dart';
 import '../../view_model/cubit/edit_availability_state.dart';
 
