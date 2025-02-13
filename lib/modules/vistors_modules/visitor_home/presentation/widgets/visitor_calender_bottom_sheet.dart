@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:parotia/core/shared_components/custom_table_calender.dart';
 import 'package:parotia/core/utils/app_util.dart';
 import 'package:parotia/modules/vistors_modules/reservation_successfully/presentation/views/reservation_successfully_view.dart';
 import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/visitor_selected_days_range_row.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../../../core/shared_components/back_item.dart';
 import '../../../../../core/shared_components/custom_button.dart';
-import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/styles.dart';
-import '../../../../owner_modules/calender/presentation/widgets/calender_header_style.dart';
 import '../../../../owner_modules/my_rentals/models/rental_model.dart';
 
 class VisitorCalenderBottomSheet extends StatefulWidget {
@@ -21,11 +20,11 @@ class VisitorCalenderBottomSheet extends StatefulWidget {
 
 class _VisitorCalenderBottomSheetState
     extends State<VisitorCalenderBottomSheet> {
-  DateTime _focusedDay = DateTime.now();
-  List<DateTime> _selectedDays = [];
+  List<DateTime> selectedDays = [];
   num totalPrice = 0;
   @override
   Widget build(BuildContext context) {
+    Map<dynamic, dynamic>? daysPrices = widget.rentalModel.calendar?.daysPrices;
     return SizedBox(
       height: 650,
       width: double.infinity,
@@ -46,107 +45,43 @@ class _VisitorCalenderBottomSheetState
               style: Styles.fontSize20Regular
                   .copyWith(fontWeight: FontWeight.bold),
             ),
-            TableCalendar(
-              firstDay: DateTime.utc(2023, 1, 1),
-              lastDay: DateTime.utc(2030, 12, 31),
-              focusedDay: _focusedDay,
-              selectedDayPredicate: (day) {
-                return _selectedDays
-                    .any((selected) => isSameDay(selected, day));
-              },
+            CustomTableCalender(
+              selectedDays: selectedDays,
+              rentalModel: widget.rentalModel,
               onDaySelected: (selectedDay, focusedDay) {
-                if (widget.rentalModel.calendar!.notAvailableDays!.any(
-                        (d) => isSameDay(DateTime.parse(d), selectedDay)) ||
+                String stringSelectedDay = selectedDay.toString().split('Z')[0];
+
+                bool isSelectedDayNotAvailable = widget
+                    .rentalModel.calendar!.notAvailableDays!
+                    .any((d) => isSameDay(DateTime.parse(d), selectedDay));
+
+                bool isSelectedDayInPriceList =
+                    daysPrices!.containsKey(stringSelectedDay);
+
+                // don't select if not available or is today else will add it to selected list
+                if (isSelectedDayNotAvailable ||
                     isSameDay(selectedDay, DateTime.now())) {
                   return; // Prevent selection of unavailable days
                 }
-
                 setState(() {
-                  if (_selectedDays.any((d) => isSameDay(d, selectedDay))) {
-                    _selectedDays.removeWhere((d) => isSameDay(d, selectedDay));
-                    if (widget.rentalModel.calendar!.daysPrices!
-                        .containsKey(selectedDay.toString().split('Z')[0])) {
-                      totalPrice = totalPrice -
-                          widget.rentalModel.calendar?.daysPrices?[
-                          selectedDay.toString().split('Z')[0]];
+                  // check if already selected unselect it
+                  bool thisDayIsAlreadySelected =
+                      selectedDays.any((d) => isSameDay(d, selectedDay));
+
+                  if (thisDayIsAlreadySelected) {
+                    selectedDays.removeWhere((d) => isSameDay(d, selectedDay));
+                    // if day in prices list will subtract it's price from total price
+                    if (isSelectedDayInPriceList) {
+                      totalPrice = totalPrice - daysPrices[stringSelectedDay];
                     }
                   } else {
-                    _selectedDays.add(selectedDay);
-                    if (widget.rentalModel.calendar!.daysPrices!
-                        .containsKey(selectedDay.toString().split('Z')[0])) {
-                      totalPrice = totalPrice +
-                          widget.rentalModel.calendar?.daysPrices?[
-                              selectedDay.toString().split('Z')[0]];
+                    selectedDays.add(selectedDay);
+                    if (isSelectedDayInPriceList) {
+                      totalPrice = totalPrice + daysPrices[stringSelectedDay];
                     }
                   }
-                  _focusedDay = focusedDay;
                 });
               },
-              calendarStyle: CalendarStyle(
-                todayTextStyle: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16),
-                todayDecoration: const BoxDecoration(
-                  color: AppColors.orange0B,
-                  shape: BoxShape.circle,
-                ),
-                selectedDecoration: BoxDecoration(
-                  color: AppColors.orange0B,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                outsideDaysVisible: false,
-              ),
-              headerStyle: calenderHeaderStyle(context),
-              calendarBuilders: CalendarBuilders(
-                defaultBuilder: (context, date, _) {
-                  bool isUnavailable = widget
-                      .rentalModel.calendar!.notAvailableDays!
-                      .any((d) => isSameDay(DateTime.parse(d), date));
-                  int? price = widget.rentalModel.calendar!
-                      .daysPrices?[date.toString().split('Z')[0]];
-
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          color: Colors.transparent,
-                          shape: BoxShape.circle,
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          date.day.toString(),
-                          style: TextStyle(
-                            color: isUnavailable ? Colors.grey : Colors.black,
-                            decoration: isUnavailable
-                                ? TextDecoration.lineThrough
-                                : null,
-                            decorationColor: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      if (price != null)
-                        Positioned(
-                          bottom: 2,
-                          child: Text(
-                            "\$${price}",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey[600],
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                    ],
-                  );
-                },
-              ),
             ),
             const Divider(),
             const Spacer(),
@@ -154,7 +89,7 @@ class _VisitorCalenderBottomSheetState
               'Reservation start & end',
               style: Styles.fontSize14RegularGrey,
             ),
-            VisitorSelectedDaysRangeRow(days: _selectedDays),
+            VisitorSelectedDaysRangeRow(days: selectedDays),
             const SizedBox(
               height: 10,
             ),
@@ -165,9 +100,9 @@ class _VisitorCalenderBottomSheetState
             const Spacer(),
             CustomButton(
               buttonColor:
-                  _selectedDays.isEmpty ? const Color(0xffFECAA2) : null,
+                  selectedDays.isEmpty ? const Color(0xffFECAA2) : null,
               text: 'Save',
-              onPressed: _selectedDays.isNotEmpty
+              onPressed: selectedDays.isNotEmpty
                   ? () {
                       AppUtil.mainNavigator(
                           context, const ReservationSuccessfullyView());
