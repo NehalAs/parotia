@@ -47,8 +47,7 @@ class _CalenderViewState extends State<CalenderView> {
                       .any((selected) => isSameDay(selected, day));
                 },
                 onDaySelected: (selectedDay, focusedDay) {
-                  // widget.rentalModel.calendar!.notAvailableDays!
-                  //     .any((d) => isSameDay(DateTime.parse(d), selectedDay)) ||
+
                   if (isSameDay(selectedDay,DateTime.now()) ) {
                     return; // Prevent selection of unavailable days
                   }

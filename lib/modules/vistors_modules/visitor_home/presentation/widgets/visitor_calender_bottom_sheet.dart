@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:parotia/core/utils/app_util.dart';
 import 'package:parotia/modules/vistors_modules/reservation_successfully/presentation/views/reservation_successfully_view.dart';
+import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/visitor_selected_days_range_row.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../../../../core/shared_components/back_item.dart';
 import '../../../../../core/shared_components/custom_button.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/styles.dart';
-import '../../../../owner_modules/calender/presentation/widgets/calender_bottom_sheet.dart';
 import '../../../../owner_modules/calender/presentation/widgets/calender_header_style.dart';
+import '../../../../owner_modules/my_rentals/models/rental_model.dart';
 
 class VisitorCalenderBottomSheet extends StatefulWidget {
-  const VisitorCalenderBottomSheet({super.key});
+  const VisitorCalenderBottomSheet({super.key, required this.rentalModel});
 
+  final RentalModel rentalModel;
   @override
   State<VisitorCalenderBottomSheet> createState() =>
       _VisitorCalenderBottomSheetState();
@@ -22,23 +23,9 @@ class _VisitorCalenderBottomSheetState
     extends State<VisitorCalenderBottomSheet> {
   DateTime _focusedDay = DateTime.now();
   List<DateTime> _selectedDays = [];
-  String date='2025-02-12 00:00:00.000';
-  final Map<DateTime, int> priceData = {
-    DateTime(2025, 2, 12): 50,
-    DateTime(2025, 2, 13): 55,
-    DateTime(2025, 2, 14): 60,
-    DateTime(2025, 2, 15): 70,
-  };
-
-
-  final List<DateTime> _unavailableDays = [];
+  num totalPrice = 0;
   @override
   Widget build(BuildContext context) {
-    String test=DateTime(2025, 2, 19).toString();
-    print('nnnnnnnnnnnnnnnnn$test');
-    print('nnnnnnnnnnnnnnnnn${DateTime.parse(test)}');
-
-    _unavailableDays.add(DateTime.parse('2025-02-10 00:00:00.000'),);
     return SizedBox(
       height: 650,
       width: double.infinity,
@@ -55,7 +42,7 @@ class _VisitorCalenderBottomSheetState
               height: 20,
             ),
             Text(
-              'Sahary in al jahra, Kuwait',
+              widget.rentalModel.name ?? '',
               style: Styles.fontSize20Regular
                   .copyWith(fontWeight: FontWeight.bold),
             ),
@@ -68,28 +55,41 @@ class _VisitorCalenderBottomSheetState
                     .any((selected) => isSameDay(selected, day));
               },
               onDaySelected: (selectedDay, focusedDay) {
-                if (_unavailableDays.any((d) => isSameDay(d, selectedDay))) {
+                if (widget.rentalModel.calendar!.notAvailableDays!.any(
+                        (d) => isSameDay(DateTime.parse(d), selectedDay)) ||
+                    isSameDay(selectedDay, DateTime.now())) {
                   return; // Prevent selection of unavailable days
                 }
 
                 setState(() {
                   if (_selectedDays.any((d) => isSameDay(d, selectedDay))) {
                     _selectedDays.removeWhere((d) => isSameDay(d, selectedDay));
+                    if (widget.rentalModel.calendar!.daysPrices!
+                        .containsKey(selectedDay.toString().split('Z')[0])) {
+                      totalPrice = totalPrice -
+                          widget.rentalModel.calendar?.daysPrices?[
+                          selectedDay.toString().split('Z')[0]];
+                    }
                   } else {
                     _selectedDays.add(selectedDay);
+                    if (widget.rentalModel.calendar!.daysPrices!
+                        .containsKey(selectedDay.toString().split('Z')[0])) {
+                      totalPrice = totalPrice +
+                          widget.rentalModel.calendar?.daysPrices?[
+                              selectedDay.toString().split('Z')[0]];
+                    }
                   }
                   _focusedDay = focusedDay;
                 });
               },
               calendarStyle: CalendarStyle(
                 todayTextStyle: const TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16),
-                todayDecoration: BoxDecoration(
-                  color: Colors.transparent,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(5),
+                todayDecoration: const BoxDecoration(
+                  color: AppColors.orange0B,
+                  shape: BoxShape.circle,
                 ),
                 selectedDecoration: BoxDecoration(
                   color: AppColors.orange0B,
@@ -101,9 +101,11 @@ class _VisitorCalenderBottomSheetState
               headerStyle: calenderHeaderStyle(context),
               calendarBuilders: CalendarBuilders(
                 defaultBuilder: (context, date, _) {
-                  bool isUnavailable =
-                      _unavailableDays.any((d) => isSameDay(d, date));
-                  int? price = priceData[date];
+                  bool isUnavailable = widget
+                      .rentalModel.calendar!.notAvailableDays!
+                      .any((d) => isSameDay(DateTime.parse(d), date));
+                  int? price = widget.rentalModel.calendar!
+                      .daysPrices?[date.toString().split('Z')[0]];
 
                   return Stack(
                     alignment: Alignment.center,
@@ -146,27 +148,32 @@ class _VisitorCalenderBottomSheetState
                 },
               ),
             ),
-              const Divider(),
+            const Divider(),
             const Spacer(),
-              Text('Reservation start & end',style: Styles.fontSize14RegularGrey,),
-              Row(
-                children: [
-                  Text('Thu, 02 Dec 2022',style: Styles.fontSize14RegularGrey.copyWith(color: Colors.black),),
-                  const SizedBox(width: 90,),
-                  Text('Thu, 02 Dec 2022',style: Styles.fontSize14RegularGrey.copyWith(color: Colors.black),),
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Text('EGP 360',style: Styles.fontSize16Bold,),
-              const Spacer(),
-              CustomButton(
-                buttonColor:_selectedDays.isEmpty?const Color(0xffFECAA2):null,
-                text: 'Save',
-                onPressed: _selectedDays.isNotEmpty?(){
-                 AppUtil.mainNavigator(context, const ReservationSuccessfullyView());
-                }:(){},
-
-              )
+            Text(
+              'Reservation start & end',
+              style: Styles.fontSize14RegularGrey,
+            ),
+            VisitorSelectedDaysRangeRow(days: _selectedDays),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              'EGP $totalPrice',
+              style: Styles.fontSize16Bold,
+            ),
+            const Spacer(),
+            CustomButton(
+              buttonColor:
+                  _selectedDays.isEmpty ? const Color(0xffFECAA2) : null,
+              text: 'Save',
+              onPressed: _selectedDays.isNotEmpty
+                  ? () {
+                      AppUtil.mainNavigator(
+                          context, const ReservationSuccessfullyView());
+                    }
+                  : () {},
+            )
           ],
         ),
       ),

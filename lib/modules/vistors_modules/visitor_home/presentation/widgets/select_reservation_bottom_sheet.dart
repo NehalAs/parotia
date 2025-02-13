@@ -5,10 +5,12 @@ import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widget
 import 'package:parotia/modules/vistors_modules/visitor_home/presentation/widgets/visitor_calender_bottom_sheet.dart';
 
 import '../../../../../core/utils/styles.dart';
+import '../../../../owner_modules/my_rentals/models/rental_model.dart';
 
 class SelectReservationBottomSheet extends StatefulWidget {
-  const SelectReservationBottomSheet({super.key});
+  const SelectReservationBottomSheet({super.key, required this.rentalModel});
 
+  final RentalModel rentalModel;
   @override
   State<SelectReservationBottomSheet> createState() => _SelectReservationBottomSheetState();
 }
@@ -55,7 +57,7 @@ class _SelectReservationBottomSheetState extends State<SelectReservationBottomSh
             const Spacer(),
             CustomButton(text: 'Confirm', onPressed: () {
               Navigator.pop(context);
-              showModalBottomSheet(context: context, builder: (context) => const VisitorCalenderBottomSheet(),isScrollControlled: true,);
+              showModalBottomSheet(context: context, builder: (context) => VisitorCalenderBottomSheet(rentalModel:widget.rentalModel),isScrollControlled: true,);
             },)
           ],
         ),

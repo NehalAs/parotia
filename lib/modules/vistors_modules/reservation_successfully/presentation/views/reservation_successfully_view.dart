@@ -3,6 +3,7 @@ import 'package:parotia/core/shared_components/custom_button.dart';
 import 'package:parotia/core/shared_components/custom_svg.dart';
 import 'package:parotia/core/utils/app_util.dart';
 import 'package:parotia/modules/vistors_modules/visitor_home/presentation/views/visitor_home_view.dart';
+import 'package:parotia/modules/welcome/presentation/views/welcome_view.dart';
 
 import '../../../../../core/utils/styles.dart';
 import '../../../../../generated/assets.dart';
@@ -43,7 +44,7 @@ class ReservationSuccessfullyView extends StatelessWidget {
             CustomButton(
               text: 'Ok',
               onPressed: () {
-                AppUtil.removeUntilNavigator(context, const VisitorHomeView());
+                AppUtil.removeUntilNavigator(context, const WelcomeView());
               },
             ),
           ],

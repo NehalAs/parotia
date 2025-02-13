@@ -12,7 +12,7 @@ class VisitorsApartmentsListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => showModalBottomSheet(builder: (context) => const SelectReservationBottomSheet(), context: context,),
+      onTap: () => showModalBottomSheet(builder: (context) => SelectReservationBottomSheet(rentalModel: rentalModel,), context: context,),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
