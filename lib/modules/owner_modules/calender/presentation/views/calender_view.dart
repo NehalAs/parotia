@@ -47,8 +47,9 @@ class _CalenderViewState extends State<CalenderView> {
                       .any((selected) => isSameDay(selected, day));
                 },
                 onDaySelected: (selectedDay, focusedDay) {
-                  if (widget.rentalModel.calendar!.notAvailableDays!
-                      .any((d) => isSameDay(DateTime.parse(d), selectedDay))) {
+                  // widget.rentalModel.calendar!.notAvailableDays!
+                  //     .any((d) => isSameDay(DateTime.parse(d), selectedDay)) ||
+                  if (isSameDay(selectedDay,DateTime.now()) ) {
                     return; // Prevent selection of unavailable days
                   }
 
@@ -64,13 +65,12 @@ class _CalenderViewState extends State<CalenderView> {
                 },
                 calendarStyle: CalendarStyle(
                   todayTextStyle: const TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 16),
-                  todayDecoration: BoxDecoration(
-                    color: Colors.transparent,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(5),
+                  todayDecoration: const BoxDecoration(
+                    color:AppColors.orange0B,
+                    shape: BoxShape.circle,
                   ),
                   selectedDecoration: BoxDecoration(
                     color: AppColors.orange0B,

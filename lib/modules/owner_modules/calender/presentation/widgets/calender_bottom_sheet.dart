@@ -21,7 +21,7 @@ class CalenderBottomSheet extends StatelessWidget {
           children: [
             const BottomSheetHeader(title: 'Calender'),
             CalenderBottomSheetChoice(
-                navigatorScreen: EditAvailabilityView(days: selectedDays,), text: 'Edit Availability'),
+                navigatorScreen: EditAvailabilityView(days: selectedDays,rentalId: rentalId,), text: 'Edit Availability'),
             CalenderBottomSheetChoice(
                 navigatorScreen: EditPriceView(days:selectedDays, rentalId: rentalId,), text: 'Edit Price'),
           ],
